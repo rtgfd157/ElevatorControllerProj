@@ -1,0 +1,8 @@
+digraph "packages_MyUML" {
+charset="utf-8"
+rankdir=BT
+"0" [label="elevatorClass", shape="box"];
+"1" [label="floorsClass", shape="box"];
+"2" [label="main", shape="box"];
+"2" -> "0" [arrowhead="open", arrowtail="none"];
+}
