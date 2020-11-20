@@ -3,7 +3,9 @@ charset="utf-8"
 rankdir=BT
 "0" [label="{Elevator|currentFloor\ldirection : str\lelButtons\lelQueue : list\l|arrange_queue()\lcall_elevator_from_floor(floor_number)\linsert_elevator_floor(floor_number)\lset_el_direction_inside_push()\l}", shape="record"];
 "1" [label="{ElevatorButtons|isStopButtonPushed : bool\lmFloorsButtons : list\l|floor_inside_butt_off(floor_number)\lfloor_inside_butt_pushed(floor_number)\l}", shape="record"];
-"2" [label="{ElevatorController|\l|startprogram()\l}", shape="record"];
+"2" [label="{ElevatorController|elevator_instance\lfloors_instance\l|startprogram()\l}", shape="record"];
 "3" [label="{FloorsClass|elevatorCurrentFloor\lfloorsArray : list\l|togglePushDown(floorNumber)\ltogglePushUp(floorNumber)\l}", shape="record"];
+"0" -> "2" [arrowhead="diamond", arrowtail="none", fontcolor="green", label="elevator_instance", style="solid"];
 "1" -> "0" [arrowhead="diamond", arrowtail="none", fontcolor="green", label="elButtons", style="solid"];
+"3" -> "2" [arrowhead="diamond", arrowtail="none", fontcolor="green", label="floors_instance", style="solid"];
 }
