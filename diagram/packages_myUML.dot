@@ -1,0 +1,7 @@
+digraph "packages_myUML" {
+charset="utf-8"
+rankdir=BT
+"0" [label="C:\Users\Dell\software_try\elControllerProj\elevatorClass.py", shape="box"];
+"1" [label="C:\Users\Dell\software_try\elControllerProj\floorsClass.py", shape="box"];
+"2" [label="C:\Users\Dell\software_try\elControllerProj\main.py", shape="box"];
+}
