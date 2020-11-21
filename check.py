@@ -1,12 +1,12 @@
 
 
-a= { "floor": 56, "isPushed": True ,"floor": 5, "isPushed": True}
+# a= { "floor": 56, "isPushed": True ,"floor": 5, "isPushed": True}
 
-b={"floor": 5, "isPushed": False}
+# b={"floor": 5, "isPushed": False}
 
-a["floor" :5 ] = False 
+# a["floor" :5 ] = False 
 
-print(a)
+# print(a)
 
 #for key in self.elButtons.mFloorsButtons:
 #    print(key, '->', self.elButtons.mFloorsButtons[key])

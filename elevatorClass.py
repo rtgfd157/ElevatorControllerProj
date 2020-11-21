@@ -47,6 +47,15 @@ class Elevator:
             sort by two fields first true/false if from inside press, seconed by floor
         """
         self.elQueue = sorted(self.elQueue, key=lambda x: (self.elQueue[0], self.elQueue[1]))
+
+    def moveElevatorNext(self,):
+
+        floor =self.elQueue[0]
+        self.elQueue.pop(0)
+
+        print("elevator stop at {} floor".format(floor[1]))
+
+
                          
     class ElevatorButtons:
         """

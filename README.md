@@ -12,4 +12,4 @@ ______________
 * ..........
 
 
-![UML](/myUML.png)
+![UML](./diagram/myUML.png)
