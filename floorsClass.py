@@ -16,6 +16,14 @@ class FloorsClass():
                 self.floorsArray.append(fl)
         self.elevatorCurrentFloor = elevatorPlace
 
+    def printFloorsButtOn(self):
+        locals =[]
+
+        for i in self.floorsArray:
+            if i.isDown or i.isDown:
+                locals.append(i.floorNumber)
+        print(" buttton pushed on floor  :",locals)
+
     def togglePushUp(self,floorNumber):
         """
         togglin between pressing on button outside the floor, and removing button on when in destenation.
