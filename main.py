@@ -68,9 +68,7 @@ class ElevatorController:
 
             # make press on floor
             if r % 8 == 0:
-                r2 = random.randint(
-                    1, self.numberOfFloors - 1
-                )  # random  floor picking ,  0 floor cant be down
+                r2 = random.randint(1, self.numberOfFloors - 1)  # random  floor picking ,  0 floor cant be down
                 self.floors_instance.floorsArray[r2].isDown = True
                 
                 print("@@@@@@@@@@@@@@@@@@@@@ \ncurrent press from {} floor  way Down".format(r2))
@@ -86,7 +84,7 @@ class ElevatorController:
                 #print("before : ",self.elevator_instance.elQueue)
                 self.elevator_instance.insert_elevator_floor(r2)
                 #print("after : ",self.elevator_instance.elQueue)
-                print("@@@@@@@ \ncurrent press from {} floor  way Down".format(r2))
+                print("@@@@@@@ \ncurrent press from {} floor  way Up".format(r2))
                 print("elevator at floor: {} ".format(self.elevator_instance.currentFloor))
                 self.floors_instance.printFloorsButtOn()
                 print("@@@@@@@ ")
