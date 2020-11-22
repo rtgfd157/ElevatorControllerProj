@@ -22,7 +22,7 @@ class FloorsClass():
         for i in self.floorsArray:
             if i.isDown or i.isDown:
                 locals.append(i.floorNumber)
-        print("buttton pushed on floor  :",locals)
+        print("buttton's array pushed on floors  :",locals)
 
     def togglePushUp(self,floorNumber):
         """

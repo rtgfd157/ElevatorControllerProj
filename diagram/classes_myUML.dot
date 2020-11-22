@@ -7,8 +7,8 @@ rankdir=BT
 "3" [label="{FloorClass|floorNumber\lisDown : bool\lisUp : bool\l|togglePushDown_floor(floorNumber)\ltogglePushUp_floor(floorNumber)\l}", shape="record"];
 "4" [label="{FloorsClass|elevatorCurrentFloor\lfloorsArray : list\l|printFloorsButtOn()\ltogglePushDown(floorNumber)\ltogglePushUp(floorNumber)\l}", shape="record"];
 "1" -> "0" [arrowhead="diamond", arrowtail="none", fontcolor="green", label="elButtons", style="solid"];
-"3" -> "4" [arrowhead="diamond", arrowtail="none", fontcolor="green", label="floorsArray", style="solid"];
+"4" -> "3" [arrowhead="diamond", arrowtail="none", fontcolor="green", label="floorsArray", style="solid"];
+
 "2" -> "1" [arrowhead="diamond", arrowtail="none", fontcolor="blue", label="elevator_instance", style="dotted"];
-"2" -> "3" [arrowhead="diamond", arrowtail="none", fontcolor="blue", label="floors_instance", style="dotted"];
- 
+"2" -> "4" [arrowhead="diamond", arrowtail="none", fontcolor="blue", label="floors_instance", style="dotted"];
 }

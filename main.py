@@ -19,7 +19,7 @@ class ElevatorController:
         elevatorPlace = self.elevator_instance.currentFloor  # elevator current place
         self.floors_instance = FloorsClass(elevatorPlace, in_number_of_floors)
 
-    async def startprogram(self):
+    def startprogram(self):
         exit = False
         i = 0
 
@@ -27,26 +27,39 @@ class ElevatorController:
             
             # getting inputs from floors levels
             t1 = threading.Thread(target=self.randomlyGetFloorInputs())
-            t1.start()
-            t1.join()
 
+
+            # randomly add seconde press on some floor 
+            r_2_ = random.randint(1, 3)
+            if  r_2_ % 3 == 0:
+                t2= threading.Thread(target=self.randomlyGetFloorInputs())
+                t2.start()
+                t2.join()
+
+            t1.start()
+            
+            
             speed_of_elevator = random.randint(1, 4)
             if speed_of_elevator % 2 == 0:
 
                 if len(self.elevator_instance.elQueue) > 0 :
                     
-                    self.elevator_instance.moveElevatorNext()
-                    self.updateButttonFloorAfterArriving()
+                    self.elevator_instance.moveElevatorNext() # move elevator to next stop
+                    self.updateButttonFloorAfterArriving() # press from inside of elevator
                     
                     # pushing button from inside the elevator  - thread
-                    t2 = threading.Thread(target=self.randomlyGetElevatorButtInputs(self.elevator_instance.currentFloor))
-                    t2.start()
-                    t2.join()
+                    t3 = threading.Thread(target=self.randomlyGetElevatorButtInputs(self.elevator_instance.currentFloor))
+                    t3.start()
+                    t3.join()
+
                     
 
-            # print("Hello World")
-            time.sleep(2)
+            if  r_2_ % 3 == 0:
+                t2.join()
+            t1.join() # program wait until self.randomlyGetFloorInputs() 
+
             i += 1
+            time.sleep(2)
 
     def randomlyGetFloorInputs(self):
         r = random.randint(0, 10)
@@ -60,10 +73,10 @@ class ElevatorController:
                 )  # random  floor picking ,  0 floor cant be down
                 self.floors_instance.floorsArray[r2].isDown = True
                 
-                print("@@@@@@@ \ncurrent press from {} floor  way Down".format(r2))
+                print("@@@@@@@@@@@@@@@@@@@@@ \ncurrent press from {} floor  way Down".format(r2))
                 print("elevator at floor: {} ".format(self.elevator_instance.currentFloor))
                 self.floors_instance.printFloorsButtOn()
-                print("@@@@@@@ ")
+                print("@@@@@@@@@@@@@@@@@@@@@ ")
                 #print("before : ",self.elevator_instance.elQueue)
                 self.elevator_instance.insert_elevator_floor(r2)
                 #print("after : ",self.elevator_instance.elQueue)
@@ -89,9 +102,9 @@ class ElevatorController:
         if self.floors_instance.floorsArray[currentFloor].isDown:
             r = random.randint(0, currentFloor)
             self.elevator_instance.insert_elevator_floor(r)
-            print("&&&&&&&&&&&&")
-            print("press from elevator on floor {}  on floor {} button".format(current_floor, r))
-            print("&&&&&&&&&&&&")
+            print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+            print("current elevator on floor {}  on floor {} button".format(current_floor, r))
+            print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
             
         elif self.floors_instance.floorsArray[currentFloor].isUp:
             r = random.randint(currentFloor, self.numberOfFloors - 1)
@@ -115,4 +128,5 @@ if __name__ == "__main__":
     
     ec = ElevatorController(current_floor, number_of_floors)
      
-    asyncio.run(ec.startprogram())
+    ec.startprogram()
+    #asyncio.run(ec.startprogram())

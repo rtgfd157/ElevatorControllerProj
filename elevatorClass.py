@@ -49,10 +49,13 @@ class Elevator:
             sort elevator floor queue
             sort by two fields first true/false if from inside press, seconed by floor
         """
-        if len(self.elQueue)> 0: 
+        if len(self.elQueue)> 0:
             #print(" self.elQueue : ",self.elQueue)
-            self.elQueue = sorted(self.elQueue, key=lambda x: (self.elQueue[0][0], self.elQueue[0][1]))
-
+            if self.direction == 'down':
+                self.elQueue = sorted(self.elQueue, key=lambda x: (-self.elQueue[0][0], self.elQueue[0][1]))
+            else:
+                self.elQueue = sorted(self.elQueue, key=lambda x: (self.elQueue[0][0], self.elQueue[0][1]))
+                
     def moveElevatorNext(self,):
         if(len(self.elQueue) <1  ):
             self.direction = "not_moving"
@@ -68,12 +71,12 @@ class Elevator:
         #print("self.direction : #",self.direction,'#')
 
         if(self.direction == 'up'):
-            print("\n     moving up          ")
+            print("\n    moving up          ")
             print("   ^^^^^^^^^^^^       ")
             print("   ^^^^^^^^^^^^       ")
             print("    moving up          ")
         elif (self.direction == 'down'):
-            print("\n    moving  down       ")
+            print("\n   moving  down       ")
             print("   vvvvvvvvvvvv       ")
             print("   vvvvvvvvvvvv       ")
             print("   moving  down       ")
@@ -83,10 +86,10 @@ class Elevator:
         else:
             self.set_el_direction()
         
-        print("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        print("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         print("elevator stop at {} floor".format(next_floor[1]))
         print("elevator Queue:  {}   way up/down : {}".format(self.elQueue,self.direction))
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! \n")
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! \n")
 
         
 

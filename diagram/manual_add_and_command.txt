@@ -1,0 +1,7 @@
+"4" -> "3" [arrowhead="diamond", arrowtail="none", fontcolor="green", label="floorsArray", style="solid"];
+
+
+"2" -> "1" [arrowhead="diamond", arrowtail="none", fontcolor="blue", label="elevator_instance", style="dotted"];
+"4" -> "3" [arrowhead="diamond", arrowtail="none", fontcolor="green", label="floorsArray", style="solid"];
+
+pyreverse  -p myUML ../elevatorClass.py ../floorsClass.py ../main.py
