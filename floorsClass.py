@@ -12,7 +12,7 @@ class FloorsClass():
 
         for i in range(in_number_of_floors):
 
-                fl =  self.FloorClass(i)
+                fl =  FloorClass(i)
                 self.floorsArray.append(fl)
         self.elevatorCurrentFloor = elevatorPlace
 
@@ -42,20 +42,20 @@ class FloorsClass():
                 self.floorsArray[i].togglePushDown_floor(floorNumber)
 
 
-    class FloorClass():
-        """
-            class that will represent floor.
-        """
+class FloorClass():
+    """
+        class that will represent floor.
+    """
 
-        def __init__(self, floorNumber):
-            self.isUp=False
-            self.isDown=False
-            self.floorNumber = floorNumber
+    def __init__(self, floorNumber):
+        self.isUp=False
+        self.isDown=False
+        self.floorNumber = floorNumber
 
-        def togglePushUp_floor(self, floorNumber):
-            self.isUp = not  self.isUp
+    def togglePushUp_floor(self, floorNumber):
+        self.isUp = not  self.isUp
 
-        def togglePushDown_floor(self, floorNumber):
-            self.isDown = not  self.isDown
+    def togglePushDown_floor(self, floorNumber):
+        self.isDown = not  self.isDown
 
     

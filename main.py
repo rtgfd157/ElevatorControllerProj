@@ -54,8 +54,7 @@ class ElevatorController:
 
                     
 
-            if  r_2_ % 3 == 0:
-                t2.join()
+            
             t1.join() # program wait until self.randomlyGetFloorInputs() 
 
             i += 1

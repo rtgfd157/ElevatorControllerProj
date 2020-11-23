@@ -10,7 +10,7 @@ class Elevator:
         self.elQueue = []  # 2 values  on each cell - [  isInsidePress=bolean , floornumber ]
         self.direction = 'not_moving' # options "up", "down", "not_moving"
         self.currentFloor = in_currentFloor # program start from in_currentFloor floor
-        self.elButtons =  self.ElevatorButtons(in_number_of_floors) # entity of elevator buttons
+        self.elButtons =  ElevatorButtons(in_number_of_floors) # entity of elevator buttons
         
     def insert_elevator_floor(self, floor_number):
         """
@@ -94,34 +94,34 @@ class Elevator:
         
 
                          
-    class ElevatorButtons:
+class ElevatorButtons:
+    """
+    class  that will manage the buttons inside the elevator
+    mFloorsButtons - array of all the elavtor floors number.array will be in shape of {<floor_number>,<true/false>}.
+    isStopButtonPushed - button for managing press of stop(open elevator) in next floor.
+    """
+
+    def __init__(self, in_number_of_floors):
+        # array of all the elavtor floors number
+        self.mFloorsButtons = []
+        for i in range(in_number_of_floors):
+            self.mFloorsButtons.append({ i : False})
+        self.isStopButtonPushed = False
+
+    def floor_inside_butt_pushed(self, floor_number):
         """
-        class  that will manage the buttons inside the elevator
-        mFloorsButtons - array of all the elavtor floors number.array will be in shape of {<floor_number>,<true/false>}.
-        isStopButtonPushed - button for managing press of stop(open elevator) in next floor.
+            make button light on after push
         """
 
-        def __init__(self, in_number_of_floors):
-            # array of all the elavtor floors number
-            self.mFloorsButtons = []
-            for i in range(in_number_of_floors):
-                self.mFloorsButtons.append({ i : False})
-            self.isStopButtonPushed = False
+        for key in self.mFloorsButtons:
+            if key == floor_number :
+                self.mFloorsButtons[key] = {key: True}
 
-        def floor_inside_butt_pushed(self, floor_number):
-            """
-                make button light on after push
-            """
+    def floor_inside_butt_off(self, floor_number):
+        """
+            make button light off after getting to destination
+        """
 
-            for key in self.mFloorsButtons:
-                if key == floor_number :
-                    self.mFloorsButtons[key] = {key: True}
-
-        def floor_inside_butt_off(self, floor_number):
-            """
-                make button light off after getting to destination
-            """
-
-            for key in self.mFloorsButtons:
-                if key == floor_number :
-                    self.mFloorsButtons[key] = {key: False}
+        for key in self.mFloorsButtons:
+            if key == floor_number :
+                self.mFloorsButtons[key] = {key: False}
