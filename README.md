@@ -31,7 +31,8 @@ https://realpython.com/python-logging/
 
 ### server socket
 ------------------
-python3 sockets/server_socket.py
+~~python3 sockets/server_socket.py~~
+python3 start_program.py 
 
 ### client socket
 ------------------
