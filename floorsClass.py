@@ -1,61 +1,64 @@
-
 class FloorsClass():
     """
         class that will manage floors.
         isUp, isDown - buttons outside elevator.
-        elevatorCurrentFloor -  floor number the elevator at. 
     """
-    def __init__(self, elevatorPlace, in_number_of_floors):
+    def __init__(self, in_number_of_floors):
 
         self.floorsArray = []
-
-
         for i in range(in_number_of_floors):
 
                 fl =  FloorClass(i)
                 self.floorsArray.append(fl)
-        self.elevatorCurrentFloor = elevatorPlace
 
     def printFloorsButtOn(self):
+        """
+            printing floor buttons that are pressed and there direction
+        """
         locals =[]
 
         for i in self.floorsArray:
-            if i.isDown or i.isDown:
-                locals.append(i.floorNumber)
-        print("buttton's array pushed on floors  :",locals)
+            if i.isDown: locals.append( ( 'down: '+ i.floorNumber )  ) 
+            elif i.isUp: locals.append( ( 'up: '+ i.floorNumber )  )
+                
+        print("buttton's array pushed on floors  :\n",locals)
 
-    def togglePushUp(self,floorNumber):
+    def floor_turn_on_PushDown(self, floorNumber):
         """
-        togglin between pressing on button outside the floor, and removing button on when in destenation.
+            pressing on button outside the floor.
         """
-        for i in self.floorsArray:
-            if i == floorNumber:
-                self.floorsArray[i].togglePushUp_floor(floorNumber)
+        print(f'press down on {floorNumber} floor ')
+        self.floorsArray[floorNumber].isDown = True 
 
+    def floor_turn_off_PushDown(self, floorNumber):
+        """
+            pressing on button outside the floor.
+        """
+        self.floorsArray[floorNumber].isDown = False
 
-    def togglePushDown(self, floorNumber):
+    def floor_turn_on_PushUp(self, floorNumber):
         """
-        togglin between pressing on button outside the floor, and removing button on when in destenation.
+            pressing on button outside the floor.
         """
-        for i in self.floorsArray:
-            if i == floorNumber:
-                self.floorsArray[i].togglePushDown_floor(floorNumber)
+        print(f'press up on {floorNumber} floor ')
+        self.floorsArray[floorNumber].isUp = True 
+
+    def floor_turn_off_PushUp(self, floorNumber):
+        """
+            pressing on button outside the floor.
+        """
+        self.floorsArray[floorNumber].isU = False
+
 
 
 class FloorClass():
     """
-        class that will represent floor.
+        class that will represent floor Button(outside elevator).
     """
 
     def __init__(self, floorNumber):
         self.isUp=False
         self.isDown=False
-        self.floorNumber = floorNumber
-
-    def togglePushUp_floor(self, floorNumber):
-        self.isUp = not  self.isUp
-
-    def togglePushDown_floor(self, floorNumber):
-        self.isDown = not  self.isDown
+        self.floorNumber = floorNumber        
 
     

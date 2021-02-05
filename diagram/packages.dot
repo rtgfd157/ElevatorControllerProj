@@ -1,0 +1,14 @@
+digraph "packages" {
+charset="utf-8"
+rankdir=BT
+"0" [label="elevatorClass", shape="box"];
+"1" [label="floorsClass", shape="box"];
+"2" [label="sockets.client_skeleton", shape="box"];
+"3" [label="sockets.server_socket", shape="box"];
+"4" [label="start_program", shape="box"];
+"3" -> "0" [arrowhead="open", arrowtail="none"];
+"3" -> "1" [arrowhead="open", arrowtail="none"];
+"4" -> "0" [arrowhead="open", arrowtail="none"];
+"4" -> "1" [arrowhead="open", arrowtail="none"];
+"4" -> "3" [arrowhead="open", arrowtail="none"];
+}

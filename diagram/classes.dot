@@ -1,0 +1,22 @@
+digraph "classes" {
+charset="utf-8"
+rankdir=BT
+"0" [label="{Elevator|currentFloor : int\ldirection : int\lelButtons\lelQueue : list\lel_number\l|arrange_queue()\lcheck_if_elevator_in_same_direction(direction)\lget_current_floor_and_direction()\linit_current_floor()\linsert_elevator_floor(floor_number)\lmoveElevatorNext(floors_instance)\lset_el_direction()\l}", shape="record"];
+"1" [label="{ElevatorButtons|isStopButtonPushed : bool\lmFloorsButtons : list\l|floor_inside_butt_off(floor_number)\lfloor_inside_butt_pushed(floor_number)\l}", shape="record"];
+"2" [label="{ElevatorController|elevators_instance\lfloors_instance\lnumberOfFloors\l|}", shape="record"];
+"3" [label="{Elevators|elvators_arr : list\l|handler_add_stop_to_elevators_from_floor(floor, direction)\lhandler_inside_elevator_butt_press(elevator_number, floor)\lmoveElevatorNext(floors_instance)\l}", shape="record"];
+"4" [label="{FloorClass|floorNumber\lisDown : bool\lisUp : bool\l|}", shape="record"];
+"5" [label="{FloorsClass|floorsArray : list\l|floor_turn_off_PushDown(floorNumber)\lfloor_turn_off_PushUp(floorNumber)\lfloor_turn_on_PushDown(floorNumber)\lfloor_turn_on_PushUp(floorNumber)\lprintFloorsButtOn()\l}", shape="record"];
+
+
+
+"1" -> "0" [arrowhead="diamond", arrowtail="none", fontcolor="green", label="elButtons", style="solid"];
+
+"3" -> "2" [arrowhead="diamond", arrowtail="none", fontcolor="green", label="elevators_instance", style="solid"];
+"0" -> "3" [arrowhead="diamond", arrowtail="none", fontcolor="black",  style="solid"];
+
+"5" -> "2" [arrowhead="diamond", arrowtail="none", fontcolor="green", label="floors_instance", style="solid"];
+"4" -> "5" [arrowhead="diamond", arrowtail="none", fontcolor="black",  style="solid"];
+
+
+}

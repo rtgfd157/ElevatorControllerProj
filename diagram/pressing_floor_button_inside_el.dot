@@ -1,0 +1,38 @@
+digraph G {     
+    size ="16,16";
+
+    bg[label="Algorithm for managing Elavtors queue in buiding" shape=box];
+
+    s[label="start"];
+    //press button from elvator inside       
+    start [label="Press on Button\n inside elevator"  ]; 
+    butt_press[label="Find Closest Elevator By:\n" 
+                +" 1.same direction \n"
+                +" 2.Closest\n3.shortest Qeueu" shape=box]
+
+    start -> butt_press ;
+
+    queue[label="inserting press, into queue of chosen El"]
+
+    butt_press -> queue ; 
+
+
+    start2 [label="Press on up/down\n  on  floor"  ];
+    start2 -> butt_press ;
+
+    s->start;
+    s->start2;
+    /*
+    queue_procedure[label="queue algorythem"]
+
+    parse -> execute;
+    start -> init [style=dotted];
+    start -> cleanup;
+    execute -> { make_string; printf}
+    init -> make_string;     edge [color=red];
+    so is this     start -> printf [style=bold,label="100 times"];
+    make_string [label="make a\nstring"];
+    node [shape=box,style=filled,color=".7 .3 1.0"];
+    execute -> compare;
+     */
+     }

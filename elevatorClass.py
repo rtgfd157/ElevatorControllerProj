@@ -1,3 +1,67 @@
+import copy
+
+class Elevators:
+    """
+        class that will manage all elevators in building
+
+    """
+    def __init__(self,in_number_of_floors ,in_number_of_elevators):
+
+        self.elvators_arr = []
+        for i in range(in_number_of_elevators):
+            le = Elevator(in_number_of_floors , i )
+            self.elvators_arr.append(le)
+
+    def moveElevatorNext(self,floors_instance):
+        for el in self.elvators_arr:
+            #print( f'el.elQueue : {el.elQueue} el_number: {el.el_number}' )
+            el.moveElevatorNext(floors_instance)
+
+    def handler_add_stop_to_elevators_from_floor(self, floor,direction):
+        """
+            method to choose elevator by same direction and fewer stops in queue line
+        """
+        print('###########################')
+        print(  "inside handler_add_stop_to_elevators_from_floor" )
+
+        arr = None
+        arr = copy.deepcopy(self.elvators_arr)
+        # for el in arr:
+        #     print(f'el.el_number {el.el_number}  el.direction{el.direction}')  
+        
+        if direction <0:
+            arr= sorted( arr, key=lambda x: ( x.direction, x.elQueue ))
+        else:
+            arr= sorted( arr, key=lambda x: ( -x.direction, x.elQueue ))
+
+        el_number = arr[0].el_number # the first elevator that is in best shape
+        self.elvators_arr[el_number].elQueue.append(floor)
+
+
+    def handler_inside_elevator_butt_press(self, elevator_number ,floor):
+        if floor not in self.elvators_arr[elevator_number].elQueue:
+            self.elvators_arr[elevator_number].elQueue.append(floor)
+
+
+        # print(" arr - : ",arr)
+        # for e in arr:
+        #     print('direction: ', e.direction,' array: '  ,e.elQueue," el number: ",  e.el_number)
+
+
+        #el= get_same_direction_elevators(floor,direction)
+        # el = get_closest_elevator
+        # need to add code ..
+
+    # def get_same_direction_elevators(self, floor,direction):
+    #     return_el = []
+
+    #     #print("################################################")
+    #     for el in self.elvators_arr:
+    #         print('el.direction: ',el.direction,' el.elQueue: ',el.elQueue  )
+    #         if  len(el.elQueue) > 0 and el.elQueue[0] >  floor and el.direction == direction:
+    #             return_el.append(el)
+    #     return return_el
+
 class Elevator:
     """
     class that will manage Elevator.
@@ -6,42 +70,50 @@ class Elevator:
     the class will have sub class of elevator buttons(within).
     """
 
-    def __init__(self, in_currentFloor, in_number_of_floors):
-        self.elQueue = []  # 2 values  on each cell - [  isInsidePress=bolean , floornumber ]
-        self.direction = 'not_moving' # options "up", "down", "not_moving"
-        self.currentFloor = in_currentFloor # program start from in_currentFloor floor
+    def __init__(self, in_number_of_floors,in_el_number):
+        self.elQueue = [] #[ floornumber]            ///floornumber: number} isInsidePress=bolean 
+        self.direction = 0 # options "up" = 1, "down" = -1, "not_moving" = 0
+        self.currentFloor = self.init_current_floor() # program start from in_currentFloor floor
         self.elButtons =  ElevatorButtons(in_number_of_floors) # entity of elevator buttons
-        
+        self.el_number = in_el_number
+
+    def init_current_floor(self):
+        return 0
+        #self.currentFloor = 0
+
+    def get_current_floor_and_direction(self):
+        return (  self.currentFloor, self.direction )
+    
+    def check_if_elevator_in_same_direction(self, direction):
+        if self.direction == direction:
+            return True
+        return False
+
     def insert_elevator_floor(self, floor_number):
         """
             happens after push of person from inside the elevator
         """
-
-        self.elQueue.insert(0 ,[True, floor_number]) # apepend in start of list
-        self.arrange_queue()
-
+        self.elQueue.append(floor_number) # apepend in start of list
+        
         self.set_el_direction() # set the direction of the elevator after inside push
         self.elButtons.floor_inside_butt_pushed(floor_number)  # change light in elevator button
+        self.set_el_direction()
 
     def set_el_direction(self):
         """
             setting direction of elevator
         """
+        #print(f'self.elQueue {self.elQueue}, self.currentFloor {self.currentFloor}  ')
         #print("setting direction- self.currentFloor : {}  , self.elQueue[0][1] : {} ".format(self.currentFloor, self.elQueue[0][1]))
-
-        if self.currentFloor > self.elQueue[0][1] :
-            self.direction = 'down'
-        elif self.currentFloor < self.elQueue[0][1] :
-            self.direction = 'up'
+        if self.elQueue.count == 0:
+            self.direction = 0
+        elif self.currentFloor > self.elQueue[0] :
+            self.direction = -1
+        elif self.currentFloor < self.elQueue[0] :
+            self.direction = 1
         else:
-            self.direction = 'not_moving'
+            self.direction = 0
 
-        #print("self.direction - ",self.direction)
-
-    def call_elevator_from_floor(self,floor_number):
-        self.elQueue.append([floor_number, False]) # append in end of list
-                
-        self.arrange_queue()
 
 
     def arrange_queue(self):
@@ -49,46 +121,52 @@ class Elevator:
             sort elevator floor queue
             sort by two fields first true/false if from inside press, seconed by floor
         """
+        #print(f'el queue: {self.elQueue} from arrange queue')
         if len(self.elQueue)> 0:
             #print(" self.elQueue : ",self.elQueue)
-            if self.direction == 'down':
-                self.elQueue = sorted(self.elQueue, key=lambda x: (-self.elQueue[0][0], self.elQueue[0][1]))
+            if self.direction == -1 :
+                self.elQueue.sort(reverse = True)
+                #self.elQueue = sorted(self.elQueue, key=lambda x: (-self.elQueue))
             else:
-                self.elQueue = sorted(self.elQueue, key=lambda x: (self.elQueue[0][0], self.elQueue[0][1]))
+                self.elQueue.sort()
+                #self.elQueue = sorted(self.elQueue, key=lambda x: (self.elQueue))
                 
-    def moveElevatorNext(self,):
+    def moveElevatorNext(self,floors_instance):
         if(len(self.elQueue) <1  ):
-            self.direction = "not_moving"
+            self.direction = 0
+            return
         else:
             self.set_el_direction()
+            self.arrange_queue()
 
-        #print("elqueue : ",self.elQueue)
         next_floor =self.elQueue[0]
 
-        self.currentFloor = next_floor[1]
+        self.currentFloor = next_floor
         self.elQueue.pop(0)
 
-        #print("self.direction : #",self.direction,'#')
+        # floor button off after getting to  destenation
+        self.elButtons.floor_inside_butt_off(self.currentFloor)
 
-        if(self.direction == 'up'):
+        floors_instance.floor_turn_on_PushDown(self.currentFloor)
+        if(self.direction == 1):
             print("\n    moving up          ")
             print("   ^^^^^^^^^^^^       ")
             print("   ^^^^^^^^^^^^       ")
             print("    moving up          ")
-        elif (self.direction == 'down'):
+        elif (self.direction == -1):
             print("\n   moving  down       ")
             print("   vvvvvvvvvvvv       ")
             print("   vvvvvvvvvvvv       ")
             print("   moving  down       ")
 
         if(len(self.elQueue) <1  ):
-            self.direction = "not_moving"
+            self.direction = 0
         else:
             self.set_el_direction()
         
         print("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        print("elevator stop at {} floor".format(next_floor[1]))
-        print("elevator Queue:  {}   way up/down : {}".format(self.elQueue,self.direction))
+        print("elevator number:{} stop at {} floor".format(self.el_number,next_floor))
+        print("elevator Queue:  {}   way (1)up/down(-1) : {}".format(self.elQueue,self.direction))
         print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! \n")
 
         
