@@ -20,7 +20,7 @@ def call_script(cl):
 
 c_list =[['python3', 'client_skeleton.py' ,'floor_up','4'],
         ['python3', 'client_skeleton.py' ,'el_button_press','4','1' ],
-                   # ['python3', 'client_skeleton.py' ,'s' ],
+                   # ['python3', 'client_skcd soeleton.py' ,'s' ],
                     ]
 
 for cl in c_list:

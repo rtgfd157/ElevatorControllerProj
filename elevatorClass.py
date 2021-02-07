@@ -1,4 +1,5 @@
 import copy
+import threading
 
 class Elevators:
     """
@@ -6,6 +7,7 @@ class Elevators:
 
     """
     def __init__(self,in_number_of_floors ,in_number_of_elevators):
+        self.lock = threading.Lock()
 
         self.elvators_arr = []
         for i in range(in_number_of_elevators):
@@ -14,8 +16,11 @@ class Elevators:
 
     def moveElevatorNext(self,floors_instance):
         for el in self.elvators_arr:
+            self.lock.acquire()
             #print( f'el.elQueue : {el.elQueue} el_number: {el.el_number}' )
             el.moveElevatorNext(floors_instance)
+            self.lock.release()
+
 
     def handler_add_stop_to_elevators_from_floor(self, floor,direction):
         """
@@ -24,6 +29,7 @@ class Elevators:
         print('###########################')
         print(  "inside handler_add_stop_to_elevators_from_floor" )
 
+        self.lock.acquire()
         arr = None
         arr = copy.deepcopy(self.elvators_arr)
         # for el in arr:
@@ -36,6 +42,7 @@ class Elevators:
 
         el_number = arr[0].el_number # the first elevator that is in best shape
         self.elvators_arr[el_number].elQueue.append(floor)
+        self.lock.release()
 
 
     def handler_inside_elevator_butt_press(self, elevator_number ,floor):
@@ -43,24 +50,7 @@ class Elevators:
             self.elvators_arr[elevator_number].elQueue.append(floor)
 
 
-        # print(" arr - : ",arr)
-        # for e in arr:
-        #     print('direction: ', e.direction,' array: '  ,e.elQueue," el number: ",  e.el_number)
-
-
-        #el= get_same_direction_elevators(floor,direction)
-        # el = get_closest_elevator
-        # need to add code ..
-
-    # def get_same_direction_elevators(self, floor,direction):
-    #     return_el = []
-
-    #     #print("################################################")
-    #     for el in self.elvators_arr:
-    #         print('el.direction: ',el.direction,' el.elQueue: ',el.elQueue  )
-    #         if  len(el.elQueue) > 0 and el.elQueue[0] >  floor and el.direction == direction:
-    #             return_el.append(el)
-    #     return return_el
+ 
 
 class Elevator:
     """
@@ -71,6 +61,7 @@ class Elevator:
     """
 
     def __init__(self, in_number_of_floors,in_el_number):
+        #self.lock = threading.Lock() # make bug need to check
         self.elQueue = [] #[ floornumber]            ///floornumber: number} isInsidePress=bolean 
         self.direction = 0 # options "up" = 1, "down" = -1, "not_moving" = 0
         self.currentFloor = self.init_current_floor() # program start from in_currentFloor floor
@@ -132,6 +123,8 @@ class Elevator:
                 #self.elQueue = sorted(self.elQueue, key=lambda x: (self.elQueue))
                 
     def moveElevatorNext(self,floors_instance):
+        lock = threading.Lock()
+        lock.acquire(0)
         if(len(self.elQueue) <1  ):
             self.direction = 0
             return
@@ -168,6 +161,8 @@ class Elevator:
         print("elevator number:{} stop at {} floor".format(self.el_number,next_floor))
         print("elevator Queue:  {}   way (1)up/down(-1) : {}".format(self.elQueue,self.direction))
         print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! \n")
+        lock.release()
+        
 
         
 
